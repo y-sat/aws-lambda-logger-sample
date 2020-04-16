@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration>
     <Properties>
-        <Property name="log_format">%-5p %d{yyyy-MM-dd HH:mm:ss} %X{AWSRequestId} %c{10} - %m%n</Property>
+        <Property name="log_format">%-5p %X{AWSRequestId} %c{10} - %m%n%ex</Property>
+        <Property name="loglevel">${env:loglevel}</Property>
     </Properties>
     <Appenders>
         <Lambda name="Lambda">
@@ -11,10 +12,8 @@
         </Lambda>
     </Appenders>
     <Loggers>
-        <Root level="INFO">
+        <Root level="${loglevel}">
             <AppenderRef ref="Lambda"/>
         </Root>
-        <Logger name="software.amazon.awssdk" level="WARN" />
-        <Logger name="software.amazon.awssdk.request" level="DEBUG" />
     </Loggers>
 </Configuration>
